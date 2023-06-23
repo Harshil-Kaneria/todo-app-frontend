@@ -1,7 +1,8 @@
 "use client";
-import RegistrationForm from "@/components/RegistrationForm";
+import { Container, Row, Col } from "react-bootstrap";
 import NavBar from "@/components/Navbar";
-import { Card, Container, Row, Col } from "react-bootstrap";
+import RegistrationForm from "@/components/RegistrationForm";
+import Footer from "@/components/Footer";
 // Make Function
 const RegisterPage = () => {
   return (
@@ -11,15 +12,12 @@ const RegisterPage = () => {
         <Row>
           <Col xs={0} md={4} lg={4}></Col>
           <Col xs={12} md={4} lg={4}>
-            <Card>
-              <Card.Body className="shadow p-3 bg-body rounded">
-                <RegistrationForm />
-              </Card.Body>
-            </Card>
+            <RegistrationForm />
           </Col>
           <Col xs={0} md={4} lg={4}></Col>
         </Row>
       </Container>
+      <Footer />
     </>
   );
 };

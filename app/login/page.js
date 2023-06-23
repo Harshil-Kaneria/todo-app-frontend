@@ -1,7 +1,8 @@
 "use client";
-import LoginForm from "@/components/LoginForm";
+import { Container, Row, Col,Div } from "react-bootstrap";
 import NavBar from "@/components/Navbar";
-import { Card, Container, Row, Col } from "react-bootstrap";
+import LoginForm from "@/components/LoginForm";
+import Footer from "@/components/Footer";
 // Make Function
 const LoginPage = () => {
   return (
@@ -11,15 +12,13 @@ const LoginPage = () => {
         <Row>
           <Col xs={0} md={4} lg={4}></Col>
           <Col xs={12} md={4} lg={4}>
-            <Card>
-              <Card.Body className="shadow p-3 bg-body rounded">
-                <LoginForm />
-              </Card.Body>
-            </Card>
+            <LoginForm />
           </Col>
           <Col xs={0} md={4} lg={4}></Col>
         </Row>
       </Container>
+      <p className="mt-5 pt-1">&nbsp;</p>
+      <Footer />
     </>
   );
 };
