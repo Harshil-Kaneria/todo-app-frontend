@@ -4,8 +4,20 @@ import * as Yup from "yup";
 import YupPassword from "yup-password";
 YupPassword(Yup);
 
+import { useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux'
+import { decrement } from '@/redux/reducers/counterSlice'
+
+
 // Make Function
 const RegistrationForm = () => {
+
+  const dispatch = useDispatch()
+  const count = useSelector(state => state.counter.value)
+  useEffect(()=>{
+    console.log('count -',count);
+  },[count])
+
   const formik = useFormik({
     initialValues: {
       first_name: "",
@@ -30,6 +42,9 @@ const RegistrationForm = () => {
         "🚀 ~ file: RegistrationForm.js:31 ~ RegistrationForm ~ values:",
         values
       );
+
+      dispatch(decrement())
+
       formik.resetForm();
     },
   });
