@@ -30,7 +30,7 @@ const LoginForm = () => {
         <Card>
           <Card.Header className="text-center fw-bolder">Login</Card.Header>
           <Card.Body>
-            <Form.Group className="mb-3" hasValidation>
+            <Form.Group className="mb-3">
               <Form.Label>Email address</Form.Label>
               <Form.Control
                 type="email"
