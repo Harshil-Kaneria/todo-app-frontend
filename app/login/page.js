@@ -1,10 +1,19 @@
 "use client";
-import { Container, Row, Col,Div } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import NavBar from "@/components/Navbar";
 import LoginForm from "@/components/LoginForm";
 import Footer from "@/components/Footer";
+import { useSelector } from "react-redux";
+import { useRouter } from 'next/navigation'
 // Make Function
 const LoginPage = () => {
+
+  const router = useRouter()
+  const userAuth = useSelector((state) => state?.persistedReducer?.user?.auth);
+  if(userAuth){
+    router.push('/')
+  }
+
   return (
     <>
       <NavBar />

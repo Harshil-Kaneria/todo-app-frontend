@@ -3,8 +3,18 @@ import { Container, Row, Col } from "react-bootstrap";
 import NavBar from "@/components/Navbar";
 import RegistrationForm from "@/components/RegistrationForm";
 import Footer from "@/components/Footer";
+import { useSelector } from "react-redux";
+import { useRouter } from 'next/navigation'
+
 // Make Function
 const RegisterPage = () => {
+
+  const router = useRouter()
+  const userAuth = useSelector((state) => state?.persistedReducer?.user?.auth);
+  if(userAuth){
+    router.push('/')
+  }
+
   return (
     <>
       <NavBar />
