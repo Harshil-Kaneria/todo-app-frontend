@@ -3,18 +3,31 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import YupPassword from "yup-password";
 YupPassword(Yup);
-import { useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux'
-import { increment } from '@/redux/reducers/counterSlice'
+import { useLoginMutation } from '@/services/auth/auth';
+import { toast } from "react-toastify";
+import { useDispatch } from 'react-redux'
+import { loginSet } from '@/redux/reducers/slice/authSlice'
 
 // Make Function
 const LoginForm = () => {
- 
+
   const dispatch = useDispatch()
-  const count = useSelector(state => state.counter.value)
-  useEffect(()=>{
-    console.log('count -',count);
-  },[count])
+
+  const [login] = useLoginMutation();
+  const loginApiCall = async (data={}) =>{
+    if(!data) return 0
+    try {
+      const credentials = {
+        email: data.email,
+        password: data.password,
+      };
+      const response = await login(credentials).unwrap();
+      dispatch(loginSet(response?.token))
+      toast.success(response?.message || 'Success')
+    } catch (err) {
+      toast.error(err?.data?.message || 'Something went wrong !')
+    }
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -26,13 +39,7 @@ const LoginForm = () => {
       password: Yup.string().password().required("Required"),
     }),
     onSubmit: (values) => {
-      console.log(
-        "🚀 ~ file: RegistrationForm.js:31 ~ RegistrationForm ~ values:",
-        values
-      );
-
-      dispatch(increment())
-
+      loginApiCall(values)
       formik.resetForm();
     },
   });

@@ -3,20 +3,28 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import YupPassword from "yup-password";
 YupPassword(Yup);
-
-import { useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux'
-import { decrement } from '@/redux/reducers/counterSlice'
-
+import { useRegisterMutation } from '@/services/auth/auth';
+import { toast } from "react-toastify";
 
 // Make Function
 const RegistrationForm = () => {
 
-  const dispatch = useDispatch()
-  const count = useSelector(state => state.counter.value)
-  useEffect(()=>{
-    console.log('count -',count);
-  },[count])
+  const [registration] = useRegisterMutation();
+  const registrationApiCall = async (data={}) =>{
+    if(!data) return 0
+    try {
+      const credentials = {
+        firstName: data.first_name,
+        lastName:data.last_name,
+        email:data.email,
+        password:data.password,
+      };
+      const response = await registration(credentials).unwrap();
+      toast.success(response?.message || 'Success')
+    } catch (err) {
+      toast.error(err?.data?.message || 'Something went wrong !')
+    }
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -38,13 +46,7 @@ const RegistrationForm = () => {
       password: Yup.string().password().required("Required"),
     }),
     onSubmit: (values) => {
-      console.log(
-        "🚀 ~ file: RegistrationForm.js:31 ~ RegistrationForm ~ values:",
-        values
-      );
-
-      dispatch(decrement())
-
+      registrationApiCall(values)
       formik.resetForm();
     },
   });
