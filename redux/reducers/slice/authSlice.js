@@ -9,7 +9,7 @@ export const authSlice = createSlice({
   reducers: {
     loginSet: (state,action) => {
       state.auth=true
-      state.token=action.payload
+      state.token=action.payload || ''
     },
     logoutSet: state => {
       state.auth=false

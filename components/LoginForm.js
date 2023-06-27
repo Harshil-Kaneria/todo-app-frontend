@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import YupPassword from "yup-password";
 YupPassword(Yup);
-import { useLoginMutation } from '@/services/auth/auth';
+import { useLazyLoginQuery } from '@/services/auth/auth';
 import { toast } from "react-toastify";
 import { useDispatch } from 'react-redux'
 import { loginSet } from '@/redux/reducers/slice/authSlice'
@@ -12,8 +12,8 @@ import { loginSet } from '@/redux/reducers/slice/authSlice'
 const LoginForm = () => {
 
   const dispatch = useDispatch()
-
-  const [login] = useLoginMutation();
+  const [login] = useLazyLoginQuery();
+  
   const loginApiCall = async (data={}) =>{
     if(!data) return 0
     try {
@@ -25,6 +25,7 @@ const LoginForm = () => {
       dispatch(loginSet(response?.token))
       toast.success(response?.message || 'Success')
     } catch (err) {
+      console.log("🚀 ~ file: LoginForm.js:28 ~ loginApiCall ~ err:", err)
       toast.error(err?.data?.message || 'Something went wrong !')
     }
   }

@@ -4,7 +4,7 @@ import storage from 'redux-persist/lib/storage';
 import { authApiSlice } from '@/services/auth/auth';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import rootReducer from '@/redux/reducers/rootReducer';
-import { createStateSyncMiddleware,initMessageListener } from "redux-state-sync"
+
 
 const persistConfig = {
   key: 'root',
@@ -18,11 +18,8 @@ const store = configureStore({
     persistedReducer,
     [authApiSlice.reducerPath]: authApiSlice.reducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(authApiSlice.middleware).concat(createStateSyncMiddleware()),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false}).concat(authApiSlice.middleware),
 });
-
-initMessageListener(store);
 
 const persistor = persistStore(store);
 setupListeners(store.dispatch);

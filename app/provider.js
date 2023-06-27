@@ -5,8 +5,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
-
 export default function Provider({ children }) {
+
   return <ReduxProvider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       {children}

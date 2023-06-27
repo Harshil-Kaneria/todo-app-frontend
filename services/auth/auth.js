@@ -8,7 +8,7 @@ export const authApiSlice = createApi({
   reducerPath: "authApi",
   baseQuery,
   endpoints: (builder) => ({
-    login: builder.mutation({
+    login: builder.query({
       query: (credentials) => ({
         url: "public/api/login",
         method: "POST",
@@ -26,4 +26,4 @@ export const authApiSlice = createApi({
 });
 
 // Export the generated hooks
-export const { useLoginMutation,useRegisterMutation } = authApiSlice;
+export const { useLazyLoginQuery ,useRegisterMutation } = authApiSlice;
