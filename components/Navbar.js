@@ -10,13 +10,14 @@ const NavBar = () => {
   
   const dispatch = useDispatch();
   const userAuth = useSelector((state) => state?.persistedReducer?.user?.auth);
+  const profileData = useSelector((state) => state?.persistedReducer?.profile);
 
   return (
     <>
       <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
         <Container>
           <Link className="navbar-brand" href="/">
-            Todo Application
+            {userAuth? ` Welcome ${profileData?.firstName+' '+profileData?.lastName}   `:'Todo Application'}
           </Link>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">

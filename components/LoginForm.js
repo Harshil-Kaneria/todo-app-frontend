@@ -25,7 +25,6 @@ const LoginForm = () => {
       dispatch(loginSet(response?.token))
       toast.success(response?.message || 'Success')
     } catch (err) {
-      console.log("🚀 ~ file: LoginForm.js:28 ~ loginApiCall ~ err:", err)
       toast.error(err?.data?.message || 'Something went wrong !')
     }
   }
